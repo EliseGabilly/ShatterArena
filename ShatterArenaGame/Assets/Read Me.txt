@@ -1,0 +1,7 @@
+Open Scenes/Main
+
+I've commented on most of the code to give an idea of how to use it. 
+
+Note: this is an opinionated outline of how to structure your code without over-engineering, which can be detrimental for new devs. This system is using heavy coupling, which means system 1 relies on system 2. This is 100% fine for small to medium games and especially when working with a small team, but when you set out on a large game dev project with a huge team, you may want to investigate more advanced design patterns (which you'll be familiar with at that stage anyway).
+
+If you think something should be changed/improved (without making it too complex for new devs), pop into my discord, and let's have a chat.
