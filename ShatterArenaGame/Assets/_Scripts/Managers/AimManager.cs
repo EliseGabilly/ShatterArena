@@ -51,6 +51,10 @@ public class AimManager : MonoBehaviour {
 
     private void StartAim() {
         //TODO check if start in start zone
+
+        Rigidbody rb = disc.GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+
         Vector3 startPosition = disc.transform.position;
         startPosition.y = 0.5f; // fix perspective issue
         predictionRenderer.SetPosition(0, startPosition);// position of the starting point of the line
