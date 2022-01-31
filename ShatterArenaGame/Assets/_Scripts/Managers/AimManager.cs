@@ -13,19 +13,20 @@ public class AimManager : MonoBehaviour {
     private GameObject disc;
 
     private Vector3 moussePosition;
-    private LineRenderer lineRenderer;
-    private GameObject trajectory;
+    private GameObject predictionGo;
+    private LineRenderer predictionRenderer;
     private Camera mainCamera;
 
     private bool isAiming = false;
+    private readonly int maxPredictionBounce = 2;
+    private readonly float maxPredictionStepDistance = 10f;
 
     #endregion
 
-
     private void Awake() {
         mainCamera = Camera.main;
-        trajectory = disc.transform.GetChild(0).gameObject;
-        lineRenderer = trajectory.GetComponent<LineRenderer>();
+        predictionGo = disc.transform.GetChild(0).gameObject;
+        predictionRenderer = predictionGo.GetComponent<LineRenderer>();
     }
 
     private void Update() {
@@ -34,6 +35,7 @@ public class AimManager : MonoBehaviour {
         } else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetMouseButtonUp(0)) {
             isAiming = false;
         }
+
     }
 
     private IEnumerator Aiming() {
@@ -41,6 +43,7 @@ public class AimManager : MonoBehaviour {
         StartAim();
         while (isAiming) {
             WhileAim();
+            Predict();
             yield return null;
         }
         EndAim();
@@ -50,14 +53,37 @@ public class AimManager : MonoBehaviour {
         //TODO check if start in start zone
         Vector3 startPosition = disc.transform.position;
         startPosition.y = 0.5f; // fix perspective issue
-        lineRenderer.SetPosition(0, startPosition); // position of the starting point of the line
+        predictionRenderer.SetPosition(0, startPosition);// position of the starting point of the line
 
-        trajectory.SetActive(true);
+        predictionGo.SetActive(true);
     }
 
     private void WhileAim() {
         moussePosition = GetCurrentWorldPoint3D();
-        lineRenderer.SetPosition(1, moussePosition);
+    }
+
+    void Predict() {
+        Vector3 direction = (moussePosition - disc.transform.position).normalized;
+        direction.y = 0;
+        DrawReflection(disc.transform.position, -direction, maxPredictionBounce);
+    }
+
+    private void DrawReflection(Vector3 position, Vector3 direction, int reflectionsRemaining) {
+        if (reflectionsRemaining == 0) {
+            return;
+        }
+
+        Ray ray = new Ray(position, direction);
+        if (Physics.Raycast(ray, out RaycastHit hit, maxPredictionStepDistance)) {
+            direction = Vector3.Reflect(direction, hit.normal);
+            position = hit.point;
+        } else {
+            position += direction * maxPredictionStepDistance;
+        }
+
+        predictionRenderer.SetPosition(maxPredictionBounce - reflectionsRemaining+1, position);
+
+        DrawReflection(position, direction, reflectionsRemaining - 1);
     }
 
     private Vector3 GetCurrentWorldPoint3D() {
@@ -74,9 +100,9 @@ public class AimManager : MonoBehaviour {
     }
 
     private void EndAim() {
-        trajectory.SetActive(false);
+        predictionGo.SetActive(false);
 
-        Vector3 force =moussePosition - disc.transform.position ;
+        Vector3 force = moussePosition - disc.transform.position ;
         force.y = 0;
         //TODO normalize the force to have a max 
         Rigidbody rb = disc.GetComponent<Rigidbody>();
