@@ -6,9 +6,6 @@ using UnityEngine;
 public class AimManager : MonoBehaviour {
 
     #region Variables
-
-    [SerializeField]
-    private Transform startZone;
     [SerializeField]
     private GameObject disc;
 
@@ -24,8 +21,8 @@ public class AimManager : MonoBehaviour {
     private Vector2 startMoussePos;
     private Vector2 currentMoussePos;
 
-    public GameObject startGo;
-    public GameObject currentGo;
+    private Rigidbody rb;
+    private bool isTurning;
 
     #endregion
 
@@ -34,6 +31,7 @@ public class AimManager : MonoBehaviour {
         mainCamera = Camera.main;
         predictionGo = disc.transform.GetChild(0).gameObject;
         predictionRenderer = predictionGo.GetComponent<LineRenderer>();
+        rb = disc.GetComponent<Rigidbody>();
     }
 
     private void Update() {
@@ -41,9 +39,12 @@ public class AimManager : MonoBehaviour {
             if(Input.mousePosition.y < Screen.height / 2.0f) { // if touch in top half it will be to rotate the camera
                 //StartCoroutine(nameof(Aiming));
                 Launch();
-            } 
+            } else {
+                StartCoroutine(nameof(Turn));
+            }
         } else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetMouseButtonUp(0)) {
             isAiming = false;
+            isTurning = false;
             CameraManager.Instance.SelectVCamBasic();
         }
 
@@ -54,7 +55,6 @@ public class AimManager : MonoBehaviour {
         StartAim();
         while (isAiming) {
             currentMoussePos = GetCurrentWorldPoint();
-            currentGo.transform.position = startMoussePos;
             Predict();
             yield return null;
         }
@@ -68,7 +68,6 @@ public class AimManager : MonoBehaviour {
         CameraManager.Instance.SelectVCamNoDamping();
 
         startMoussePos = GetCurrentWorldPoint();
-        startGo.transform.position = startMoussePos;
         startPosition = disc.transform.position;
         startPosition.y = 0.5f; // fix perspective issue
         predictionRenderer.SetPosition(0, startPosition);// position of the starting point of the line
@@ -134,5 +133,19 @@ public class AimManager : MonoBehaviour {
         Rigidbody rb = disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         rb.AddForce(disc.transform.forward * 500);
+    }
+
+    private IEnumerator Turn() {
+        isTurning = true;
+        CameraManager.Instance.SelectVCamNoDamping();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        startMoussePos = Input.mousePosition;
+        while (isTurning) {
+            currentMoussePos = Input.mousePosition;
+            disc.transform.Rotate(0, (currentMoussePos.x - startMoussePos.x) * 0.001f, 0);
+            yield return null;
+        }
     }
 }

@@ -24,6 +24,4 @@ public class CameraManager : Singleton<CameraManager> {
         yield return new WaitForSeconds(0.1f);
         vcam.GetCinemachineComponent<CinemachineTransposer>().m_YawDamping = 12;
     }
-
-
 }
