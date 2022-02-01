@@ -19,9 +19,16 @@ public class AimManager : MonoBehaviour {
 
     private bool isAiming = false;
     private readonly int maxPredictionBounce = 2;
-    private readonly float maxPredictionStepDistance = 10f;
+    private readonly float maxPredictionStepDistance = 100f;
+    private Vector3 startPosition;
+    private Vector2 startMoussePos;
+    private Vector2 currentMoussePos;
+
+    public GameObject startGo;
+    public GameObject currentGo;
 
     #endregion
+
 
     private void Awake() {
         mainCamera = Camera.main;
@@ -31,9 +38,13 @@ public class AimManager : MonoBehaviour {
 
     private void Update() {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
-            StartCoroutine(nameof(Aiming));
+            if(Input.mousePosition.y < Screen.height / 2.0f) { // if touch in top half it will be to rotate the camera
+                //StartCoroutine(nameof(Aiming));
+                Launch();
+            } 
         } else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetMouseButtonUp(0)) {
             isAiming = false;
+            CameraManager.Instance.SelectVCamBasic();
         }
 
     }
@@ -42,7 +53,8 @@ public class AimManager : MonoBehaviour {
         isAiming = true;
         StartAim();
         while (isAiming) {
-            WhileAim();
+            currentMoussePos = GetCurrentWorldPoint();
+            currentGo.transform.position = startMoussePos;
             Predict();
             yield return null;
         }
@@ -50,26 +62,29 @@ public class AimManager : MonoBehaviour {
     }
 
     private void StartAim() {
-        //TODO check if start in start zone
-
         Rigidbody rb = disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        CameraManager.Instance.SelectVCamNoDamping();
 
-        Vector3 startPosition = disc.transform.position;
+        startMoussePos = GetCurrentWorldPoint();
+        startGo.transform.position = startMoussePos;
+        startPosition = disc.transform.position;
         startPosition.y = 0.5f; // fix perspective issue
         predictionRenderer.SetPosition(0, startPosition);// position of the starting point of the line
 
         predictionGo.SetActive(true);
     }
 
-    private void WhileAim() {
-        moussePosition = GetCurrentWorldPoint3D();
-    }
-
     void Predict() {
-        Vector3 direction = (moussePosition - disc.transform.position).normalized;
-        direction.y = 0;
-        DrawReflection(disc.transform.position, -direction, maxPredictionBounce);
+        Vector3 dir = currentMoussePos - startMoussePos;
+        Vector3 pos = new Vector3(disc.transform.position.x, 0.5f, disc.transform.position.z);
+        Debug.Log(dir.magnitude);
+            DrawReflection(pos, -dir, maxPredictionBounce);
+        //} else {
+        //    predictionRenderer.SetPosition(1, startPosition);
+        //    predictionRenderer.SetPosition(2, startPosition);
+        //}
     }
 
     private void DrawReflection(Vector3 position, Vector3 direction, int reflectionsRemaining) {
@@ -90,27 +105,34 @@ public class AimManager : MonoBehaviour {
         DrawReflection(position, direction, reflectionsRemaining - 1);
     }
 
-    private Vector3 GetCurrentWorldPoint3D() {
+    private Vector3 GetCurrentWorldPoint() {
         Vector3 screenPosDepth = Input.mousePosition;
-        screenPosDepth.z = -mainCamera.transform.position.z; // Give it camera depth
-        Vector3 mousePos = mainCamera.ScreenToWorldPoint(screenPosDepth);
-        return mousePos;
-    }
-    private Vector2 GetCurrentWorldPoint2D() {
-        Vector3 screenPosDepth = Input.mousePosition;
-        screenPosDepth.z = -mainCamera.transform.position.z; // Give it camera depth
-        Vector3 mousePos = mainCamera.ScreenToWorldPoint(screenPosDepth);
-        return mousePos;
+        //screenPosDepth.z = 50; // Give it camera depth
+        Ray ray = mainCamera.ScreenPointToRay(screenPosDepth);
+        Debug.DrawRay(ray.origin, ray.direction);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+            return hit.point;
+        }
+
+        return Vector3.zero;
     }
 
     private void EndAim() {
         predictionGo.SetActive(false);
 
-        Vector3 force = moussePosition - disc.transform.position ;
-        force.y = 0;
-        //TODO normalize the force to have a max 
+        Vector3 dir = currentMoussePos - startMoussePos;
+
+            //TODO normalize the force to have a max 
+            Rigidbody rb = disc.GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+            rb.AddForce(-dir.normalized * 500);
+
+    }
+
+    private void Launch() {
         Rigidbody rb = disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
-        rb.AddForce(-force.normalized*500);
+        rb.AddForce(disc.transform.forward * 500);
     }
 }
