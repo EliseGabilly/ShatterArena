@@ -13,19 +13,21 @@ public class Obstacle : MonoBehaviour {
     private int healt;
 
     private void Awake() {
-        healt = obstacle.maxHealt;
-        gameObject.GetComponent<MeshRenderer>().material = obstacle.material;
+        healt = obstacle.MaxHealt;
+        gameObject.GetComponent<MeshRenderer>().material = obstacle.Material;
     }
 
     public void TakeDamage(int damage) {
-        healt -= damage;
-        CheckForDamages();
+        if (obstacle.IsDestructible) {
+            healt -= damage;
+            CheckForDamages();
+        }
     }
 
     private void CheckForDamages() {
         if (healt <= 0) {
             Destroy(gameObject);
-        } else if (healt <= obstacle.maxHealt/2) {
+        } else if (healt <= obstacle.MaxHealt/2) {
             fire.SetActive(true);
         }
     }
