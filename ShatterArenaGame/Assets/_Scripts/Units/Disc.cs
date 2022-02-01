@@ -2,7 +2,18 @@ using UnityEngine;
 
 public class Disc : MonoBehaviour {
 
+    private Rigidbody rb;
     private int baseDamage = 10;
+    [SerializeField]
+    private GameObject cam;
+
+    private void Awake() {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update() {
+        transform.LookAt(transform.position + rb.velocity);
+    }
 
     private void OnCollisionEnter(Collision collision) {
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
