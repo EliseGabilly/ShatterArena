@@ -12,6 +12,10 @@ public class Obstacles : ScriptableObject {
     public Material Material { get => material; }
 
     [SerializeField]
+    private GameObject go;
+    public GameObject GO { get => go; }
+
+    [SerializeField]
     private bool isDestructible = true;
     public bool IsDestructible { get => isDestructible; }
 

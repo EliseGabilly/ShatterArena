@@ -1,15 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utils {
 
-    public static Vector3 GetRandomPosition (float z = 0.0f, float round = 0.5f) {
-        return new Vector3(RandomExclusive(-10f, 10f, round), (z == 0 ? 0 : RandomExclusive(-10f, 10f, round)), RandomExclusive(-10f, 10f, round));
+    public static Vector3 GetRandomPosition () {
+        int x = Mathf.RoundToInt(Random.Range(Const.MinXTerrain + 1, Const.MaxXTerrain));
+        int z = Mathf.RoundToInt(Random.Range(Const.MinYTerrain + 1, Const.MaxYTerrain));
+        return new Vector3(x, 0, z);
     }
 
-    public static float RandomExclusive(float minInclusive, float maxInclusive, float exclude = 0.5f, float round = 0) {
+    public static float RandomExclusive(float minInclusive, float maxInclusive, float exclude = 0.5f) {
         float rand = Random.Range(minInclusive+exclude, maxInclusive+exclude);
-        return rand - (rand % round);
+        float res = RoundUpToNearest(rand, 0.5f);
+        return res;
     }
+    public static float RoundUpToNearest(float passednumber, float roundto) {
+        // for 105.5 round to
+        // 1 = 106, 10 = 110, 7 = 112, 100 = 200, 0.2 = 105.6, 0.3 = 105.6
+
+        //if no rounto then just pass original number back
+        if (roundto == 0) {
+            return passednumber;
+        } else {
+            return Mathf.Ceil(passednumber / roundto) * roundto;
+        }
+    }
+
 }

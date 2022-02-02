@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb7f00a6c6c394d42a24065c2c3b0c44, type: 3}
-  m_Name: Corridor
+  m_Name: Wall
   m_EditorClassIdentifier: 
   obstaclesList:
-  - {fileID: 11400000, guid: 6ba975e67d0ad394a9aea675a3dd4f58, type: 2}
-  - {fileID: 11400000, guid: 6ba975e67d0ad394a9aea675a3dd4f58, type: 2}
   - {fileID: 11400000, guid: 6ba975e67d0ad394a9aea675a3dd4f58, type: 2}
   - {fileID: 11400000, guid: 6ba975e67d0ad394a9aea675a3dd4f58, type: 2}
   - {fileID: 11400000, guid: 6ba975e67d0ad394a9aea675a3dd4f58, type: 2}
@@ -26,7 +24,5 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 1}
   - {x: 0, y: 0, z: 2}
   - {x: 0, y: 0, z: 3}
-  - {x: 2, y: 0, z: 0}
-  - {x: 2, y: 0, z: 1}
-  - {x: 2, y: 0, z: 2}
-  - {x: 2, y: 0, z: 3}
+  - {x: 0, y: 0, z: 4}
+  - {x: 0, y: 0, z: 5}

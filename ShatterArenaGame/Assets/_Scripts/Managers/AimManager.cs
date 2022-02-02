@@ -6,8 +6,7 @@ using UnityEngine;
 public class AimManager : MonoBehaviour {
 
     #region Variables
-    [SerializeField]
-    private GameObject disc;
+    public GameObject disc { get; set; }
 
     private Vector3 moussePosition;
     private GameObject predictionGo;
@@ -29,17 +28,16 @@ public class AimManager : MonoBehaviour {
 
     private void Awake() {
         mainCamera = Camera.main;
-        predictionGo = disc.transform.GetChild(0).gameObject;
-        predictionRenderer = predictionGo.GetComponent<LineRenderer>();
-        rb = disc.GetComponent<Rigidbody>();
+        //predictionGo = Disc.transform.GetChild(0).gameObject;
+        //predictionRenderer = predictionGo.GetComponent<LineRenderer>();
     }
 
     private void Update() {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
-            if(Input.mousePosition.y < Screen.height / 2.0f) { // if touch in top half it will be to rotate the camera
+            if(Input.mousePosition.y < Screen.height / 4.0f) { // if botom 25% 
                 //StartCoroutine(nameof(Aiming));
                 Launch();
-            } else {
+            } else if (Input.mousePosition.y < 7*Screen.height / 8.0f) { // if bellow UI
                 StartCoroutine(nameof(Turn));
             }
         } else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetMouseButtonUp(0)) {
@@ -48,6 +46,11 @@ public class AimManager : MonoBehaviour {
             CameraManager.Instance.SelectVCamBasic();
         }
 
+    }
+
+    public void SetDisc(GameObject disc) {
+        this.disc = disc;
+        rb = this.disc.GetComponent<Rigidbody>();
     }
 
     private IEnumerator Aiming() {
@@ -78,8 +81,7 @@ public class AimManager : MonoBehaviour {
     void Predict() {
         Vector3 dir = currentMoussePos - startMoussePos;
         Vector3 pos = new Vector3(disc.transform.position.x, 0.5f, disc.transform.position.z);
-        Debug.Log(dir.magnitude);
-            DrawReflection(pos, -dir, maxPredictionBounce);
+        DrawReflection(pos, -dir, maxPredictionBounce);
         //} else {
         //    predictionRenderer.SetPosition(1, startPosition);
         //    predictionRenderer.SetPosition(2, startPosition);

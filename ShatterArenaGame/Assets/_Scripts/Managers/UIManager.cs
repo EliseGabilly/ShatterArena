@@ -42,12 +42,13 @@ public class UIManager : MonoBehaviour {
 
     public void BackToMenu() {
         GameManager.Instance.EndGame();
+        menuCanvas.enabled = true;
+        inGameCanvas.enabled = false;
 
     }
     public void Replay() {
+        GameManager.Instance.EndGame();
         GameManager.Instance.StartGame();
-        menuCanvas.enabled = true;
-        inGameCanvas.enabled = false;
     }
 
     public void Quit() {

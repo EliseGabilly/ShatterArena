@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Normal
   m_EditorClassIdentifier: 
   maxHealt: 20
-  healt: 20
   material: {fileID: 2100000, guid: 0e8b31e5471e88444b1df68fdd7e70f6, type: 2}
+  go: {fileID: 4851776497247939411, guid: bffde5f0dc2b8df45af9b07aee6f189c, type: 3}
+  isDestructible: 1

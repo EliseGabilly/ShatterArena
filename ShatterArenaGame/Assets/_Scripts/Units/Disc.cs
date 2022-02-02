@@ -5,8 +5,6 @@ public class Disc : MonoBehaviour {
 
     private Rigidbody rb;
     private int baseDamage = 10;
-    [SerializeField]
-    private GameObject cam;
     
 
     private void Awake() {
