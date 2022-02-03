@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Disc : MonoBehaviour {
 
+    #region Variables
     private Rigidbody rb;
     private int baseDamage = 10;
+    #endregion
     
 
     private void Awake() {
@@ -18,7 +20,6 @@ public class Disc : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        Debug.Log("collision");
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
         if (obstacle!=null) {
             obstacle.TakeDamage(GetDamage());

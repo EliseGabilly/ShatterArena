@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : Singleton<SpawnManager> {
 
+    #region Variables
     [SerializeField]
     private Transform environementParent;
     [SerializeField]
@@ -11,11 +12,13 @@ public class SpawnManager : Singleton<SpawnManager> {
     private Transform obstaclesParent;
 
     private List<Vector3> listPosition;
+    private int obstacleCount;
+    #endregion
 
     public void SpawnObstacles(int nbObstacles = 7, int nbGroup = 7) {
-        listPosition = new List<Vector3>();
         //remove spawn on player position
-        listPosition.Add(Const.PlayerSpawn);
+        listPosition = new List<Vector3> { Const.DiscSpawn };
+        obstacleCount = 0;
 
         GameObject obstaclesParentGO = Instantiate(obstaclesParentPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         obstaclesParent = obstaclesParentGO.transform;
@@ -23,9 +26,11 @@ public class SpawnManager : Singleton<SpawnManager> {
         for (int i = 0; i < nbObstacles; i++) {
             Vector3 pos = Utils.GetRandomPosition();
             if (!listPosition.Contains(pos)) {
-                GameObject clone = Instantiate(ResourceSystem.Instance.GetRandomObstacle().GO, pos, Quaternion.identity) as GameObject;
+                Obstacles obstacle = ResourceSystem.Instance.GetRandomObstacle();
+                GameObject clone = Instantiate(obstacle.GO, pos, Quaternion.identity) as GameObject;
                 clone.transform.parent = obstaclesParent;
                 listPosition.Add(pos);
+                if (obstacle.IsDestructible) obstacleCount++;
             }
         }
         for (int i = 0; i < nbGroup; i++) {
@@ -42,9 +47,11 @@ public class SpawnManager : Singleton<SpawnManager> {
         for (int i = 0; i < group.ObstaclesList.Count; i++) {
             Vector3 pos = group.PositionsList[i] + groupPos;
             if (!listPosition.Contains(pos)) {
-                GameObject clone = Instantiate(group.ObstaclesList[i].GO, pos, Quaternion.identity) as GameObject;
+                Obstacles obstacle = group.ObstaclesList[i];
+                GameObject clone = Instantiate(obstacle.GO, pos, Quaternion.identity) as GameObject;
                 clone.transform.parent = obstaclesParent;
                 listPosition.Add(pos);
+                if (obstacle.IsDestructible) obstacleCount++;
             }
         }
     }
@@ -82,8 +89,7 @@ public class SpawnManager : Singleton<SpawnManager> {
     }
 
     public int GetNbObstacles() {
-        //-1 as we added the player spawn
-        return listPosition.Count - 1;
+        return obstacleCount;
     }
 
     public Transform GetObstaclesParent() {

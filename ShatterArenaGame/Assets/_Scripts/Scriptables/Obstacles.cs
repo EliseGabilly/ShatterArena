@@ -19,5 +19,9 @@ public class Obstacles : ScriptableObject {
     private bool isDestructible = true;
     public bool IsDestructible { get => isDestructible; }
 
+    [SerializeField]
+    private int gold = 10;
+    public int Gold { get => gold; }
+
 
 }

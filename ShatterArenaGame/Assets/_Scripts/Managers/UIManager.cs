@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : Singleton<UIManager> {
 
+    #region Variables
     [Header("Panels")]
     [SerializeField]
     private Canvas menuCanvas;
@@ -13,6 +15,16 @@ public class UIManager : MonoBehaviour {
     private Canvas infoCanvas;
     [SerializeField]
     private Canvas inGameCanvas;
+
+    [Header("Values")]
+    [SerializeField]
+    private Text goldValue;
+    [SerializeField]
+    private Text destructionValue;
+
+    [Header("Elements")]
+    private GameObject lvlUpBtn;
+    #endregion
 
     public void OpenMenu() {
         menuCanvas.enabled = true;
@@ -37,6 +49,7 @@ public class UIManager : MonoBehaviour {
         shopCanvas.enabled = false;
         infoCanvas.enabled = false;
         inGameCanvas.enabled = true;
+        lvlUpBtn.SetActive(false);
         GameManager.Instance.StartGame();
     }
 
@@ -47,6 +60,7 @@ public class UIManager : MonoBehaviour {
 
     }
     public void Replay() {
+        lvlUpBtn.SetActive(false);
         GameManager.Instance.EndGame();
         GameManager.Instance.StartGame();
     }
@@ -55,4 +69,13 @@ public class UIManager : MonoBehaviour {
         Application.Quit();
     }
 
+    public void UpdateGameValues() {
+        goldValue.text = GameManager.Instance.Gold.ToString();
+        int destructionVal = (int)(((GameManager.Instance.NbObstacles - GameManager.Instance.NbObstaclesLeft) / GameManager.Instance.NbObstacles) * 100);
+        destructionValue.text = destructionVal.ToString() + " %";
+        if (destructionVal>=Const.DestructionObjectif) lvlUpBtn.SetActive(true);
+    }
+    public void LvlUp() {
+        //TODO
+    }
 }

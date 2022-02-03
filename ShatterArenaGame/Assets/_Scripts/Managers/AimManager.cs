@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class AimManager : MonoBehaviour {
 
     #region Variables
-    public GameObject disc { get; set; }
+    public GameObject Disc { get; set; }
 
     private Vector3 moussePosition;
     private GameObject predictionGo;
@@ -62,8 +62,8 @@ public class AimManager : MonoBehaviour {
     }
 
     public void SetDisc(GameObject disc) {
-        this.disc = disc;
-        rb = this.disc.GetComponent<Rigidbody>();
+        this.Disc = disc;
+        rb = this.Disc.GetComponent<Rigidbody>();
     }
 
     private IEnumerator Aiming() {
@@ -78,13 +78,13 @@ public class AimManager : MonoBehaviour {
     }
 
     private void StartAim() {
-        Rigidbody rb = disc.GetComponent<Rigidbody>();
+        Rigidbody rb = Disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         CameraManager.Instance.SelectVCamNoDamping();
 
         startMoussePos = GetCurrentWorldPoint();
-        startPosition = disc.transform.position;
+        startPosition = Disc.transform.position;
         startPosition.y = 0.5f; // fix perspective issue
         predictionRenderer.SetPosition(0, startPosition);// position of the starting point of the line
 
@@ -93,7 +93,7 @@ public class AimManager : MonoBehaviour {
 
     void Predict() {
         Vector3 dir = currentMoussePos - startMoussePos;
-        Vector3 pos = new Vector3(disc.transform.position.x, 0.5f, disc.transform.position.z);
+        Vector3 pos = new Vector3(Disc.transform.position.x, 0.5f, Disc.transform.position.z);
         DrawReflection(pos, -dir, maxPredictionBounce);
         //} else {
         //    predictionRenderer.SetPosition(1, startPosition);
@@ -124,8 +124,7 @@ public class AimManager : MonoBehaviour {
         //screenPosDepth.z = 50; // Give it camera depth
         Ray ray = mainCamera.ScreenPointToRay(screenPosDepth);
         Debug.DrawRay(ray.origin, ray.direction);
-        RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) {
             return hit.point;
         }
 
@@ -138,16 +137,16 @@ public class AimManager : MonoBehaviour {
         Vector3 dir = currentMoussePos - startMoussePos;
 
             //TODO normalize the force to have a max 
-            Rigidbody rb = disc.GetComponent<Rigidbody>();
+            Rigidbody rb = Disc.GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.AddForce(-dir.normalized * 500);
 
     }
 
     private void Launch() {
-        Rigidbody rb = disc.GetComponent<Rigidbody>();
+        Rigidbody rb = Disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
-        rb.AddForce(disc.transform.forward * 500);
+        rb.AddForce(Disc.transform.forward * 500);
     }
 
     private IEnumerator Turn() {
@@ -159,7 +158,7 @@ public class AimManager : MonoBehaviour {
         startMoussePos = Input.mousePosition;
         while (isTurning) {
             currentMoussePos = Input.mousePosition;
-            disc.transform.Rotate(0, (currentMoussePos.x - startMoussePos.x) * 0.001f, 0);
+            Disc.transform.Rotate(0, (currentMoussePos.x - startMoussePos.x) * 0.001f, 0);
             yield return null;
         }
     }

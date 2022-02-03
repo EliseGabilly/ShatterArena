@@ -2,27 +2,30 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager> {
 
+    #region Variables
     public bool InGame { get; set; } = false;
     [SerializeField]
     private AimManager aimManager;
     [SerializeField]
-    private Transform playerParent;
-    private GameObject player;
+    private Transform discParent;
+    private GameObject disc;
 
     private Transform obstaclesParent;
-    public int NbObstacles { get; set; }
-    public int NbObstaclesLeft { get; set; }
+    public float NbObstacles { get; set; }
+    public float NbObstaclesLeft { get; set; }
     public int Gold { get; set; }
+    #endregion
 
     public void StartGame() {
         InGame = true;
         Time.timeScale = 1;
         aimManager.enabled = true;
-        SpawnPlayer();
+        SpawnDisc();
         SpawnManager.Instance.SpawnObstacles();
         NbObstacles = SpawnManager.Instance.GetNbObstacles();
         NbObstaclesLeft = SpawnManager.Instance.GetNbObstacles();
         obstaclesParent = SpawnManager.Instance.GetObstaclesParent();
+        Gold = 0;
     }
     public void EndGame() {
         InGame = false;
@@ -31,16 +34,16 @@ public class GameManager : Singleton<GameManager> {
         DespawnAll();
     }
 
-    private void SpawnPlayer() {
-        Vector3 pos = Const.PlayerSpawn;
-        player = Instantiate(ResourceSystem.Instance.GetPlayer(), pos, Quaternion.identity) as GameObject;
-        player.transform.parent = playerParent;
-        aimManager.SetDisc(player);
-        CameraManager.Instance.SetFollowAndLookAt(player.transform);
+    private void SpawnDisc() {
+        Vector3 pos = Const.DiscSpawn;
+        disc = Instantiate(ResourceSystem.Instance.GetDisc(), pos, Quaternion.identity) as GameObject;
+        disc.transform.parent = discParent;
+        aimManager.SetDisc(disc);
+        CameraManager.Instance.SetFollowAndLookAt(disc.transform);
     }
 
     private void DespawnAll() {
         Destroy(obstaclesParent.gameObject);
-        Destroy(player);
+        Destroy(disc);
     }
 }

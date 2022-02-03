@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour {
 
+    #region Variables
     [SerializeField]
     private Obstacles obstacle;
     [SerializeField]
@@ -14,6 +15,7 @@ public class Obstacle : MonoBehaviour {
     [SerializeField]
     private int healt;
     private Animator anim;
+    #endregion
 
     private void Awake() {
         healt = obstacle.MaxHealt;
@@ -32,6 +34,9 @@ public class Obstacle : MonoBehaviour {
         anim.SetTrigger("hit");
         if (healt <= 0) {
             StartCoroutine(nameof(DestroyObstacle));
+            GameManager.Instance.Gold += obstacle.Gold;
+            GameManager.Instance.NbObstaclesLeft -=1;
+            UIManager.Instance.UpdateGameValues();
         } else if (healt <= obstacle.MaxHealt/2) {
             fire.SetActive(true);
         }
