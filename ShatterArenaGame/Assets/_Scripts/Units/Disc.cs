@@ -18,6 +18,7 @@ public class Disc : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
+        Debug.Log("collision");
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
         if (obstacle!=null) {
             obstacle.TakeDamage(GetDamage());

@@ -10,10 +10,9 @@ public class GameManager : Singleton<GameManager> {
     private GameObject player;
 
     private Transform obstaclesParent;
-    [SerializeField]
-    private int nbObstacles;
-    [SerializeField]
-    private int gold;
+    public int NbObstacles { get; set; }
+    public int NbObstaclesLeft { get; set; }
+    public int Gold { get; set; }
 
     public void StartGame() {
         InGame = true;
@@ -21,7 +20,8 @@ public class GameManager : Singleton<GameManager> {
         aimManager.enabled = true;
         SpawnPlayer();
         SpawnManager.Instance.SpawnObstacles();
-        nbObstacles =  SpawnManager.Instance.GetNbObstacles();
+        NbObstacles = SpawnManager.Instance.GetNbObstacles();
+        NbObstaclesLeft = SpawnManager.Instance.GetNbObstacles();
         obstaclesParent = SpawnManager.Instance.GetObstaclesParent();
     }
     public void EndGame() {

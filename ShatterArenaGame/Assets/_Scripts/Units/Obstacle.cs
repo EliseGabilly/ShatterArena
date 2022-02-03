@@ -10,11 +10,15 @@ public class Obstacle : MonoBehaviour {
     [SerializeField]
     private GameObject fire;
     [SerializeField]
+    private GameObject explosion;
+    [SerializeField]
     private int healt;
+    private Animator anim;
 
     private void Awake() {
         healt = obstacle.MaxHealt;
         gameObject.GetComponent<MeshRenderer>().material = obstacle.Material;
+        anim = GetComponent<Animator>();
     }
 
     public void TakeDamage(int damage) {
@@ -25,11 +29,17 @@ public class Obstacle : MonoBehaviour {
     }
 
     private void CheckForDamages() {
+        anim.SetTrigger("hit");
         if (healt <= 0) {
-            Destroy(gameObject);
+            StartCoroutine(nameof(DestroyObstacle));
         } else if (healt <= obstacle.MaxHealt/2) {
             fire.SetActive(true);
         }
     }
 
+    private IEnumerator DestroyObstacle() {
+        //explosion.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
+    }
 }
