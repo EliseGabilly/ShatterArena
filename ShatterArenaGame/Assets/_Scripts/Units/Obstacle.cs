@@ -38,7 +38,7 @@ public class Obstacle : MonoBehaviour {
     }
 
     private IEnumerator DestroyObstacle() {
-        //explosion.SetActive(true);
+        explosion.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }
