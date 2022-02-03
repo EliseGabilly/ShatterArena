@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AimManager : MonoBehaviour {
 
@@ -23,11 +24,16 @@ public class AimManager : MonoBehaviour {
     private Rigidbody rb;
     private bool isTurning;
 
+    [SerializeField]
+    private Slider cooldownSlider;
+    private float cooldown;
+
     #endregion
 
 
     private void Awake() {
         mainCamera = Camera.main;
+        cooldown = Const.Cooldown;
         //predictionGo = Disc.transform.GetChild(0).gameObject;
         //predictionRenderer = predictionGo.GetComponent<LineRenderer>();
     }
@@ -36,7 +42,10 @@ public class AimManager : MonoBehaviour {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
             if(Input.mousePosition.y < Screen.height / 4.0f) { // if botom 25% 
                 //StartCoroutine(nameof(Aiming));
-                Launch();
+                if (cooldown >= Const.Cooldown) {
+                    cooldown = 0;
+                    Launch();
+                }
             } else if (Input.mousePosition.y < 7*Screen.height / 8.0f) { // if bellow UI
                 StartCoroutine(nameof(Turn));
             }
@@ -45,7 +54,11 @@ public class AimManager : MonoBehaviour {
             isTurning = false;
             CameraManager.Instance.SelectVCamBasic();
         }
+        cooldown += 0.001f;
+    }
 
+    private void LateUpdate() {
+        cooldownSlider.value = cooldown;
     }
 
     public void SetDisc(GameObject disc) {

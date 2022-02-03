@@ -9,6 +9,7 @@ public static class Const {
     public static float MaxXTerrain { get; } = 10f;
     public static float MinZTerrain { get; } = -10f;
     public static float MaxZTerrain { get; } = 10f;
+    public static float Cooldown { get; } = 2;
 
 
 }
