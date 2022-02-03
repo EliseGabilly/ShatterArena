@@ -21,6 +21,7 @@ public class UIManager : Singleton<UIManager> {
     private Text goldValue;
     [SerializeField]
     private Text destructionValue;
+    private bool isFirstEvol;
 
     [Header("Elements")]
     [SerializeField]
@@ -32,12 +33,10 @@ public class UIManager : Singleton<UIManager> {
     private Text lvlTxt;
     [SerializeField]
     private Text goldTxt;
-    [SerializeField]
-    private Player player;
 
     private void Update() {
-        lvlTxt.text = player.level.ToString();
-        goldTxt.text = player.gold.ToString();
+        lvlTxt.text = Player.Instance.level.ToString();
+        goldTxt.text = Player.Instance.gold.ToString();
     }
 
     #endregion
@@ -67,6 +66,8 @@ public class UIManager : Singleton<UIManager> {
         inGameCanvas.enabled = true;
         lvlUpBtn.SetActive(false);
         GameManager.Instance.StartGame();
+        isFirstEvol = true;
+        UpdateGameValues();
     }
 
     public void BackToMenu() {
@@ -79,6 +80,8 @@ public class UIManager : Singleton<UIManager> {
         lvlUpBtn.SetActive(false);
         GameManager.Instance.EndGame();
         GameManager.Instance.StartGame();
+        isFirstEvol = true;
+        UpdateGameValues();
     }
 
     public void Quit() {
@@ -86,12 +89,17 @@ public class UIManager : Singleton<UIManager> {
     }
 
     public void UpdateGameValues() {
-        goldValue.text = GameManager.Instance.Gold.ToString();
+        goldValue.text = GameManager.Instance.GameGold.ToString();
         int destructionVal = (int)(((GameManager.Instance.NbObstacles - GameManager.Instance.NbObstaclesLeft) / GameManager.Instance.NbObstacles) * 100);
         destructionValue.text = destructionVal.ToString() + " %";
-        if (destructionVal>=Const.DestructionObjectif) lvlUpBtn.SetActive(true);
+        if (destructionVal >= Const.DestructionObjectif && isFirstEvol) {
+            lvlUpBtn.SetActive(true);
+            isFirstEvol = false;
+        }
     }
+
     public void LvlUp() {
-        //TODO
+        Player.Instance.level += 1;
+        lvlUpBtn.SetActive(false);
     }
 }

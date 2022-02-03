@@ -7,7 +7,13 @@ public class CameraManager : Singleton<CameraManager> {
     [SerializeField]
     private CinemachineVirtualCamera vcam;
     [SerializeField]
-    private  CinemachineVirtualCamera vcam_noDamping;
+    private CinemachineVirtualCamera vcam_noDamping;
+    [SerializeField]
+    private Camera minMapCam;
+
+    public void SizeMinMapCam() {
+        minMapCam.orthographicSize = Player.Instance.level + 1;
+    }
 
     public void SelectVCamBasic() {
         StartCoroutine(nameof(ResetDampCoRoutine));

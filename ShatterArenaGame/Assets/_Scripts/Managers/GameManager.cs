@@ -9,30 +9,31 @@ public class GameManager : Singleton<GameManager> {
     [SerializeField]
     private Transform discParent;
     private GameObject disc;
-    [SerializeField]
-    private Player player;
 
-    private Transform obstaclesParent;
     public float NbObstacles { get; set; }
     public float NbObstaclesLeft { get; set; }
-    public int Gold { get; set; }
+    public int GameGold { get; set; }
     #endregion
 
     protected override void Awake() {
         base.Awake();
-        player = SaveSystem.LoadDataAsPlayer(player);
+    }
+    private void Start() {
+        SaveSystem.LoadData();
+        
     }
 
     public void StartGame() {
         InGame = true;
         Time.timeScale = 1;
         aimManager.enabled = true;
+        CameraManager.Instance.SizeMinMapCam();
         SpawnDisc();
+        SpawnManager.Instance.SpawnWorld();
         SpawnManager.Instance.SpawnObstacles();
         NbObstacles = SpawnManager.Instance.GetNbObstacles();
         NbObstaclesLeft = SpawnManager.Instance.GetNbObstacles();
-        obstaclesParent = SpawnManager.Instance.GetObstaclesParent();
-        Gold = 0;
+        GameGold = 0;
     }
     public void EndGame() {
         InGame = false;
@@ -42,15 +43,16 @@ public class GameManager : Singleton<GameManager> {
     }
 
     private void SpawnDisc() {
-        Vector3 pos = Const.DiscSpawn;
-        disc = Instantiate(ResourceSystem.Instance.GetDisc(), pos, Quaternion.identity) as GameObject;
+        Vector3 pos = Const.Instance.DiscSpawn;
+        disc = Instantiate(ResourceSystem.Instance.Disc, pos, Quaternion.identity) as GameObject;
         disc.transform.parent = discParent;
         aimManager.SetDisc(disc);
         CameraManager.Instance.SetFollowAndLookAt(disc.transform);
     }
 
     private void DespawnAll() {
-        Destroy(obstaclesParent.gameObject);
+        Destroy(SpawnManager.Instance.GetObstaclesParent().gameObject);
+        Destroy(SpawnManager.Instance.GetWorldParent().gameObject);
         Destroy(disc);
     }
 }

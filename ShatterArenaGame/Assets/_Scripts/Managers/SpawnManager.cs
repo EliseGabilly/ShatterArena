@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,20 +8,53 @@ public class SpawnManager : Singleton<SpawnManager> {
     #region Variables
     [SerializeField]
     private Transform environementParent;
-    [SerializeField]
-    private GameObject obstaclesParentPrefab;
+    private Transform worldParent;
     private Transform obstaclesParent;
 
     private List<Vector3> listPosition;
     private int obstacleCount;
     #endregion
 
-    public void SpawnObstacles(int nbObstacles = 7, int nbGroup = 7) {
+    internal void SpawnWorld() {
+        GameObject worldParentGO = Instantiate(ResourceSystem.Instance.WorldParent, Vector3.zero, Quaternion.identity) as GameObject;
+        worldParent = worldParentGO.transform;
+        worldParent.transform.parent = environementParent;
+
+        GameObject floorGO = Instantiate(ResourceSystem.Instance.Floor, Vector3.zero, Quaternion.identity) as GameObject;
+        Transform floor = floorGO.transform;
+        floor.localScale = new Vector3(Const.Instance.WidthTerrain + 2, 0.5f, Const.Instance.WidthTerrain + 2);
+        floor.parent = worldParent;
+
+        //Walls
+        GameObject wallGO1 = Instantiate(ResourceSystem.Instance.Wall, new Vector3(Const.Instance.MinTerrain, 0, 0), Quaternion.identity) as GameObject;
+        Transform wall1 = wallGO1.transform;
+        wall1.localScale = new Vector3(0.1f, 0.5f, Const.Instance.WidthTerrain);
+        wall1.parent = worldParent;
+
+        GameObject wallGO2 = Instantiate(ResourceSystem.Instance.Wall, new Vector3(Const.Instance.MaxTerrain, 0, 0), Quaternion.identity) as GameObject;
+        Transform wall2 = wallGO2.transform;
+        wall2.localScale = new Vector3(0.1f, 0.5f, Const.Instance.WidthTerrain);
+        wall2.parent = worldParent;
+
+        GameObject wallGO3 = Instantiate(ResourceSystem.Instance.Wall, new Vector3(0, 0, Const.Instance.MinTerrain), Quaternion.identity) as GameObject;
+        Transform wall3 = wallGO3.transform;
+        wall3.localScale = new Vector3(Const.Instance.WidthTerrain, 0.5f, 0.1f);
+        wall3.parent = worldParent;
+
+        GameObject wallGO4 = Instantiate(ResourceSystem.Instance.Wall, new Vector3(0, 0, Const.Instance.MaxTerrain), Quaternion.identity) as GameObject;
+        Transform wall4 = wallGO4.transform;
+        wall4.localScale = new Vector3(Const.Instance.WidthTerrain, 0.5f, 0.1f);
+        wall4.parent = worldParent;
+    }
+
+    public void SpawnObstacles() {
+        int nbObstacles = Const.Instance.NbObstacles;
+        int nbGroup = Const.Instance.NbGrouping;
         //remove spawn on player position
-        listPosition = new List<Vector3> { Const.DiscSpawn };
+        listPosition = new List<Vector3> { Const.Instance.DiscSpawn };
         obstacleCount = 0;
 
-        GameObject obstaclesParentGO = Instantiate(obstaclesParentPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject obstaclesParentGO = Instantiate(ResourceSystem.Instance.ObstacleParent, Vector3.zero, Quaternion.identity) as GameObject;
         obstaclesParent = obstaclesParentGO.transform;
         obstaclesParent.transform.parent = environementParent;
         for (int i = 0; i < nbObstacles; i++) {
@@ -78,7 +112,7 @@ public class SpawnManager : Singleton<SpawnManager> {
         float maxXPos = maxXGroup + groupPos.x;
         float minZPos = minZGroup + groupPos.z;
         float maxZPos = maxZGroup + groupPos.z;
-        while (!(minXPos > Const.MinXTerrain && maxXPos < Const.MaxXTerrain && minZPos > Const.MinZTerrain && maxZPos < Const.MaxZTerrain)) {
+        while (!(minXPos > Const.Instance.MinTerrain && maxXPos < Const.Instance.MaxTerrain && minZPos > Const.Instance.MinTerrain && maxZPos < Const.Instance.MaxTerrain)) {
             groupPos = Utils.GetRandomPosition();
             minXPos = minXGroup + groupPos.x;
             maxXPos = maxXGroup + groupPos.x;
@@ -94,5 +128,8 @@ public class SpawnManager : Singleton<SpawnManager> {
 
     public Transform GetObstaclesParent() {
         return obstaclesParent;
+    }
+    public Transform GetWorldParent() {
+        return worldParent;
     }
 }

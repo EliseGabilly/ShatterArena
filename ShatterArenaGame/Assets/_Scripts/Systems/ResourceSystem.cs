@@ -6,9 +6,16 @@ using UnityEngine;
 /// MonoBehaviour to add some debug/development references else make it standard class
 public class ResourceSystem : StaticInstance<ResourceSystem> {
 
-    public GameObject Disc { get; private set; }
+    //Environment
+    public GameObject Floor { get; private set; }
+    public GameObject Wall { get; private set; }
+    public GameObject ObstacleParent { get; private set; }
+    public GameObject WorldParent { get; private set; }
+    //Scriptables
     public List<Obstacles> Obstacles { get; private set; }
     public List<Grouping> Grouping { get; private set; }
+    //Other
+    public GameObject Disc { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -16,8 +23,14 @@ public class ResourceSystem : StaticInstance<ResourceSystem> {
     }
 
     private void AssembleResources() {
+        Floor = Resources.Load("Terrain/Floor") as GameObject;
+        Wall = Resources.Load("Terrain/Wall") as GameObject;
+        ObstacleParent = Resources.Load("Terrain/Obstacles") as GameObject;
+        WorldParent = Resources.Load("Terrain/World") as GameObject;
+
         Obstacles = Resources.LoadAll<Obstacles>("Obstacles").ToList();
         Grouping = Resources.LoadAll<Grouping>("Groupings").ToList();
+
         Disc = Resources.Load("Units/Disc") as GameObject;
     }
 
