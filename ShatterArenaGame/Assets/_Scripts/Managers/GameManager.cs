@@ -9,12 +9,19 @@ public class GameManager : Singleton<GameManager> {
     [SerializeField]
     private Transform discParent;
     private GameObject disc;
+    [SerializeField]
+    private Player player;
 
     private Transform obstaclesParent;
     public float NbObstacles { get; set; }
     public float NbObstaclesLeft { get; set; }
     public int Gold { get; set; }
     #endregion
+
+    protected override void Awake() {
+        base.Awake();
+        player = SaveSystem.LoadDataAsPlayer(player);
+    }
 
     public void StartGame() {
         InGame = true;

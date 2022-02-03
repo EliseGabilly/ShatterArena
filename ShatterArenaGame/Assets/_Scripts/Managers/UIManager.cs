@@ -23,7 +23,23 @@ public class UIManager : Singleton<UIManager> {
     private Text destructionValue;
 
     [Header("Elements")]
+    [SerializeField]
     private GameObject lvlUpBtn;
+    #endregion
+
+    #region Dev
+    [SerializeField]
+    private Text lvlTxt;
+    [SerializeField]
+    private Text goldTxt;
+    [SerializeField]
+    private Player player;
+
+    private void Update() {
+        lvlTxt.text = player.level.ToString();
+        goldTxt.text = player.gold.ToString();
+    }
+
     #endregion
 
     public void OpenMenu() {
