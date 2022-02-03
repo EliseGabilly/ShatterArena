@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: Environement
   dynamicFriction: 0.05
   staticFriction: 0.1
-  bounciness: 1
+  bounciness: 0.95
   frictionCombine: 0
   bounceCombine: 0

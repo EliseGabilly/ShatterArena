@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 2799644233525531909}
   - component: {fileID: 4903614713541738549}
   m_Layer: 0
-  m_Name: Disc 1
+  m_Name: Disc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1693,7 +1693,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7755837189352084459}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 40860747589cc3742a7e1e8b823a8d42, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -1728,4 +1728,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17dca1fb745ac724092928d0ba53df57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
