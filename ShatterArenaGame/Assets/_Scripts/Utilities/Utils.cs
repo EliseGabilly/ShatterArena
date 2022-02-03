@@ -3,8 +3,8 @@ using UnityEngine;
 public static class Utils {
 
     public static Vector3 GetRandomPosition () {
-        int x = Mathf.RoundToInt(Random.Range(Const.MinXTerrain + 1, Const.MaxXTerrain));
-        int z = Mathf.RoundToInt(Random.Range(Const.MinYTerrain + 1, Const.MaxYTerrain));
+        int x = Mathf.RoundToInt(Random.Range(Const.MinXTerrain + 1, Const.MaxXTerrain-1));
+        int z = Mathf.RoundToInt(Random.Range(Const.MinZTerrain + 1, Const.MaxZTerrain-1));
         return new Vector3(x, 0, z);
     }
 

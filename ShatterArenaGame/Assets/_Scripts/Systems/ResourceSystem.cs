@@ -17,9 +17,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem> {
 
     private void AssembleResources() {
         Obstacles = Resources.LoadAll<Obstacles>("Obstacles").ToList();
-        Debug.Log("Obstacles count " + Obstacles.Count);
         Grouping = Resources.LoadAll<Grouping>("Groupings").ToList();
-        Debug.Log("Grouping count " + Grouping.Count);
         Player = Resources.Load("Units/Disc") as GameObject;
     }
 

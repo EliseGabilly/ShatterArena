@@ -5980,6 +5980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 404822773}
   - component: {fileID: 404822774}
+  - component: {fileID: 404822775}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6014,16 +6015,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimManager: {fileID: 1726576735}
+  playerParent: {fileID: 1059305759}
+--- !u!114 &404822775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404822772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602cb251872c7524d8f74675d420a751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   environementParent: {fileID: 1727938693}
   obstaclesParentPrefab: {fileID: 5077093892935706412, guid: f1a6aa757c19cf04fadf6f685aef23db, type: 3}
-  playerParent: {fileID: 1059305759}
 --- !u!43 &462903869
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4140
+  m_Name: pb_Mesh-1234
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
