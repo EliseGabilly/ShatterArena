@@ -78,6 +78,10 @@ public class SpawnManager : Singleton<SpawnManager> {
             Debug.Log("ObstaclesList and PositionsList should be the same size");
             return;
         }
+        if (groupPos.Equals(Vector3.positiveInfinity)) {
+            //if the group can't fit in the terrain
+            return;
+        }
         for (int i = 0; i < group.ObstaclesList.Count; i++) {
             Vector3 pos = group.PositionsList[i] + groupPos;
             if (!listPosition.Contains(pos)) {
@@ -112,6 +116,9 @@ public class SpawnManager : Singleton<SpawnManager> {
         float maxXPos = maxXGroup + groupPos.x;
         float minZPos = minZGroup + groupPos.z;
         float maxZPos = maxZGroup + groupPos.z;
+        //if the group can't fit in the terrain
+        if (maxXGroup - minXGroup >= Const.Instance.WidthTerrain-2 || maxZGroup - minZGroup >= Const.Instance.WidthTerrain-2)
+            return Vector3.positiveInfinity;
         while (!(minXPos > Const.Instance.MinTerrain && maxXPos < Const.Instance.MaxTerrain && minZPos > Const.Instance.MinTerrain && maxZPos < Const.Instance.MaxTerrain)) {
             groupPos = Utils.GetRandomPosition();
             minXPos = minXGroup + groupPos.x;
