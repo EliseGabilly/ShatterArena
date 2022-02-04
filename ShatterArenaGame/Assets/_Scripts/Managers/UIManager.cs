@@ -99,7 +99,7 @@ public class UIManager : Singleton<UIManager> {
     }
 
     public void LvlUp() {
-        Player.Instance.level += 1;
+        Player.Instance.ChangeLvl(1);
         lvlUpBtn.SetActive(false);
     }
 }

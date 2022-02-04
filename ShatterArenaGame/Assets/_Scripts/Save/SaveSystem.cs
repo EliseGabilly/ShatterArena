@@ -1,4 +1,5 @@
 using System.IO;
+using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -18,17 +19,27 @@ public static class SaveSystem {
 
     public static PlayerData LoadData() {
         if (File.Exists(PATH)) {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(PATH, FileMode.Open);
-
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
-            stream.Close();
-
-            Player.Instance.ChangeData(data);
-            return data;
+            return LoadDataFromPath();
         } else {
-            Debug.LogError("Save file not found (" + PATH + ")");
-            return null;
+            try {
+                //try to write a new player if first conection
+                SavePlayer(Player.Instance);
+                return LoadDataFromPath();
+            } catch (Exception e) {
+                Debug.LogError("Save file not found (" + PATH + ")");
+                return null;
+            }
         }
+    }
+
+    public static PlayerData LoadDataFromPath() {
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(PATH, FileMode.Open);
+
+        PlayerData data = formatter.Deserialize(stream) as PlayerData;
+        stream.Close();
+
+        Player.Instance.ChangeData(data);
+        return data;
     }
 }
