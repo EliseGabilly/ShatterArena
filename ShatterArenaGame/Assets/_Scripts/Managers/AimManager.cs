@@ -54,7 +54,7 @@ public class AimManager : MonoBehaviour {
             isTurning = false;
             CameraManager.Instance.SelectVCamBasic();
         }
-        cooldown += 0.001f;
+        cooldown += 0.005f;
     }
 
     private void LateUpdate() {
