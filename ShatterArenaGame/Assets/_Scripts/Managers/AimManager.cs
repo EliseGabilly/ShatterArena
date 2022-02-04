@@ -121,7 +121,6 @@ public class AimManager : MonoBehaviour {
 
     private Vector3 GetCurrentWorldPoint() {
         Vector3 screenPosDepth = Input.mousePosition;
-        //screenPosDepth.z = 50; // Give it camera depth
         Ray ray = mainCamera.ScreenPointToRay(screenPosDepth);
         Debug.DrawRay(ray.origin, ray.direction);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) {
@@ -135,8 +134,6 @@ public class AimManager : MonoBehaviour {
         predictionGo.SetActive(false);
 
         Vector3 dir = currentMoussePos - startMoussePos;
-
-            //TODO normalize the force to have a max 
             Rigidbody rb = Disc.GetComponent<Rigidbody>();
             rb.velocity = Vector3.zero;
             rb.AddForce(-dir.normalized * 500);

@@ -15,6 +15,8 @@ public class UIManager : Singleton<UIManager> {
     private Canvas infoCanvas;
     [SerializeField]
     private Canvas inGameCanvas;
+    [SerializeField]
+    private Canvas endCanvas;
 
     [Header("Values")]
     [SerializeField]
@@ -46,6 +48,7 @@ public class UIManager : Singleton<UIManager> {
         shopCanvas.enabled = false;
         infoCanvas.enabled = false;
         inGameCanvas.enabled = false;
+        endCanvas.enabled = false;
     }
     public void OpenShop() {
         menuCanvas.enabled = false;
@@ -64,10 +67,15 @@ public class UIManager : Singleton<UIManager> {
         shopCanvas.enabled = false;
         infoCanvas.enabled = false;
         inGameCanvas.enabled = true;
+        endCanvas.enabled = false;
         lvlUpBtn.SetActive(false);
         GameManager.Instance.StartGame();
         isFirstEvol = true;
         UpdateGameValues();
+    }
+
+    public void OpenEnd() {
+        endCanvas.enabled = true;
     }
 
     public void BackToMenu() {
@@ -77,6 +85,7 @@ public class UIManager : Singleton<UIManager> {
 
     }
     public void Replay() {
+        endCanvas.enabled = false;
         lvlUpBtn.SetActive(false);
         GameManager.Instance.EndGame();
         GameManager.Instance.StartGame();
@@ -92,7 +101,12 @@ public class UIManager : Singleton<UIManager> {
         goldValue.text = GameManager.Instance.GameGold.ToString();
         int destructionVal = (int)(((GameManager.Instance.NbObstacles - GameManager.Instance.NbObstaclesLeft) / GameManager.Instance.NbObstacles) * 100);
         destructionValue.text = destructionVal.ToString() + " %";
-        if (destructionVal >= Const.DestructionObjectif && isFirstEvol) {
+        if (destructionVal>=100) {
+            //arena cleared
+            endCanvas.enabled = true;
+            Player.Instance.ChangeLvl(1);
+            GameManager.Instance.FinishGame();
+        } else if (destructionVal >= Const.DestructionObjectif && isFirstEvol) {
             lvlUpBtn.SetActive(true);
             isFirstEvol = false;
         }

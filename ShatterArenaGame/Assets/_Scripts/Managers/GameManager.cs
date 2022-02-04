@@ -41,6 +41,10 @@ public class GameManager : Singleton<GameManager> {
         aimManager.enabled = false;
         DespawnAll();
     }
+    public void FinishGame() {
+        InGame = false;
+        aimManager.enabled = false;
+    }
 
     private void SpawnDisc() {
         Vector3 pos = Const.Instance.DiscSpawn;

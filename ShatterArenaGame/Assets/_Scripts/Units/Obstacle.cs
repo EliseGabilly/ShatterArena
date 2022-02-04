@@ -15,12 +15,14 @@ public class Obstacle : MonoBehaviour {
     [SerializeField]
     private int healt;
     private Animator anim;
+    private bool isStanding; //avoid destroying twice the obstacle
     #endregion
 
     private void Awake() {
         healt = obstacle.MaxHealt;
         gameObject.GetComponent<MeshRenderer>().material = obstacle.Material;
         anim = GetComponent<Animator>();
+        isStanding = true;
     }
 
     public void TakeDamage(int damage) {
@@ -32,11 +34,12 @@ public class Obstacle : MonoBehaviour {
 
     private void CheckForDamages() {
         anim.SetTrigger("hit");
-        if (healt <= 0) {
+        if (healt <= 0 && isStanding) {
             StartCoroutine(nameof(DestroyObstacle));
             GameManager.Instance.GameGold += obstacle.Gold;
             GameManager.Instance.NbObstaclesLeft -=1;
             UIManager.Instance.UpdateGameValues();
+            isStanding = false;
         } else if (healt <= obstacle.MaxHealt/2) {
             fire.SetActive(true);
         }
