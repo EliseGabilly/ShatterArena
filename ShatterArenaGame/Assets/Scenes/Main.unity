@@ -6513,6 +6513,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228375559}
   m_CullTransparentMesh: 1
+--- !u!1 &245852855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4851776497247939411, guid: b8e8d9dfe11cac54cbc96ed21e81b4ba, type: 3}
+  m_PrefabInstance: {fileID: 6173411155874949106}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &245852859
+MeshFilter:
+  m_ObjectHideFlags: 10
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245852855}
+  m_Mesh: {fileID: 462903869}
 --- !u!1 &277853530
 GameObject:
   m_ObjectHideFlags: 0
@@ -7572,7 +7585,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25456
+  m_Name: pb_Mesh47000
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35283,10 +35296,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 997987096}
     m_Modifications:
-    - target: {fileID: 1360762810450969081, guid: b8e8d9dfe11cac54cbc96ed21e81b4ba, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 462903869}
     - target: {fileID: 2820512961430737610, guid: b8e8d9dfe11cac54cbc96ed21e81b4ba, type: 3}
       propertyPath: m_Mesh
       value: 
