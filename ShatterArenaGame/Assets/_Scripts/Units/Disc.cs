@@ -24,9 +24,9 @@ public class Disc : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
-        if (Player.Instance.lvlExplosion > 1) explosion.SetActive(true);
         AudioSystem.Instance.PlayHit();
         if (obstacle!=null) {
+            if (Player.Instance.lvlExplosion > 1) explosion.SetActive(true);
             obstacle.TakeDamage(GetDamage());
         }
     }

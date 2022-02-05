@@ -18,8 +18,8 @@ public class Const : Singleton<Const> {
 
     #region Level
     public int WidthTerrain { get => 3 + (Player.Instance.level * 2); }
-    public int NbObstacles { get => (int)(Player.Instance.level * 1.7); } 
-    public int NbGrouping { get => (int)(Player.Instance.level * 2.3); } 
+    public int NbObstacles { get => Player.Instance.level==1 ? 6 : (int)(Player.Instance.level * 2); } 
+    public int NbGrouping { get => Player.Instance.level <=2 ? (int)(Player.Instance.level * 0.5) : (int)(Player.Instance.level * 2); } 
 
     #endregion
 }
