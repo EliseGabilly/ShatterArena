@@ -81,10 +81,12 @@ public class UIManager : Singleton<UIManager> {
         UpdateGameValues();
     }
 
-    public void OpenEnd() {
+    public void OpenEnd(bool isHowWeGotHere = false) {
         int destructionVal = (int)(((GameManager.Instance.NbObstacles - GameManager.Instance.NbObstaclesLeft) / GameManager.Instance.NbObstacles) * 100);
         string txt;
-        if (destructionVal == 100) {
+        if (isHowWeGotHere) {
+            txt = "How did we get here?";
+        } else  if (destructionVal == 100) {
             txt = "Well done! You have destroyed all obstacles.";
             Player.Instance.ChangeLvl(1);
         } else if (destructionVal >= 75) {
