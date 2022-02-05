@@ -39,6 +39,7 @@ public class GameManager : Singleton<GameManager> {
         InGame = false;
         Time.timeScale = 0;
         aimManager.enabled = false;
+        Player.Instance.ChangeGold(GameGold);
         DespawnAll();
     }
     public void FinishGame() {
