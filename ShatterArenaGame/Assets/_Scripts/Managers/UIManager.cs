@@ -16,6 +16,8 @@ public class UIManager : Singleton<UIManager> {
     [SerializeField]
     private Canvas inGameCanvas;
     [SerializeField]
+    private Canvas infoGameCanvas;
+    [SerializeField]
     private Canvas endCanvas;
 
     [Header("Values")]
@@ -28,6 +30,8 @@ public class UIManager : Singleton<UIManager> {
     [Header("Elements")]
     [SerializeField]
     private GameObject lvlUpBtn;
+    [SerializeField]
+    private Toggle cameraToggle;
     #endregion
 
     #region Dev
@@ -42,6 +46,10 @@ public class UIManager : Singleton<UIManager> {
     }
 
     #endregion
+
+    private void Start() {
+        cameraToggle.isOn = Player.Instance.isInverseCam;
+    }
 
     public void OpenMenu() {
         menuCanvas.enabled = true;
@@ -76,6 +84,10 @@ public class UIManager : Singleton<UIManager> {
 
     public void OpenEnd() {
         endCanvas.enabled = true;
+    }
+
+    public void OpenInfoGame(bool isOpen) {
+        infoGameCanvas.enabled = isOpen;
     }
 
     public void BackToMenu() {
@@ -115,5 +127,9 @@ public class UIManager : Singleton<UIManager> {
     public void LvlUp() {
         Player.Instance.ChangeLvl(1);
         lvlUpBtn.SetActive(false);
+    }
+
+    public void ToggleCamera(bool isOn) {
+        Player.Instance.ChangeIsInverseCam(isOn);
     }
 }

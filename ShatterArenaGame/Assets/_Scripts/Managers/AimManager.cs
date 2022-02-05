@@ -34,8 +34,6 @@ public class AimManager : MonoBehaviour {
     private void Awake() {
         mainCamera = Camera.main;
         cooldown = Const.Cooldown;
-        //predictionGo = Disc.transform.GetChild(0).gameObject;
-        //predictionRenderer = predictionGo.GetComponent<LineRenderer>();
     }
 
     private void Update() {
@@ -45,6 +43,7 @@ public class AimManager : MonoBehaviour {
                 if (cooldown >= Const.Cooldown) {
                     cooldown = 0;
                     Launch();
+                    if (Player.Instance.level == 1) UIManager.Instance.OpenInfoGame(false);
                 }
             } else if (Input.mousePosition.y < 7*Screen.height / 8.0f) { // if bellow UI
                 StartCoroutine(nameof(Turn));
@@ -64,41 +63,14 @@ public class AimManager : MonoBehaviour {
     public void SetDisc(GameObject disc) {
         this.Disc = disc;
         rb = this.Disc.GetComponent<Rigidbody>();
-    }
-
-    private IEnumerator Aiming() {
-        isAiming = true;
-        StartAim();
-        while (isAiming) {
-            currentMoussePos = GetCurrentWorldPoint();
-            Predict();
-            yield return null;
-        }
-        EndAim();
-    }
-
-    private void StartAim() {
-        Rigidbody rb = Disc.GetComponent<Rigidbody>();
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        CameraManager.Instance.SelectVCamNoDamping();
-
-        startMoussePos = GetCurrentWorldPoint();
-        startPosition = Disc.transform.position;
-        startPosition.y = 0.5f; // fix perspective issue
-        predictionRenderer.SetPosition(0, startPosition);// position of the starting point of the line
-
-        predictionGo.SetActive(true);
+        predictionGo = Disc.transform.GetChild(0).gameObject;
+        predictionRenderer = predictionGo.GetComponent<LineRenderer>();
     }
 
     void Predict() {
         Vector3 dir = currentMoussePos - startMoussePos;
-        Vector3 pos = new Vector3(Disc.transform.position.x, 0.5f, Disc.transform.position.z);
-        DrawReflection(pos, -dir, maxPredictionBounce);
-        //} else {
-        //    predictionRenderer.SetPosition(1, startPosition);
-        //    predictionRenderer.SetPosition(2, startPosition);
-        //}
+        Vector3 pos = new Vector3(Disc.transform.position.x, 0.1f, Disc.transform.position.z);
+        DrawReflection(pos, Disc.transform.forward, maxPredictionBounce);
     }
 
     private void DrawReflection(Vector3 position, Vector3 direction, int reflectionsRemaining) {
@@ -119,27 +91,6 @@ public class AimManager : MonoBehaviour {
         DrawReflection(position, direction, reflectionsRemaining - 1);
     }
 
-    private Vector3 GetCurrentWorldPoint() {
-        Vector3 screenPosDepth = Input.mousePosition;
-        Ray ray = mainCamera.ScreenPointToRay(screenPosDepth);
-        Debug.DrawRay(ray.origin, ray.direction);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) {
-            return hit.point;
-        }
-
-        return Vector3.zero;
-    }
-
-    private void EndAim() {
-        predictionGo.SetActive(false);
-
-        Vector3 dir = currentMoussePos - startMoussePos;
-            Rigidbody rb = Disc.GetComponent<Rigidbody>();
-            rb.velocity = Vector3.zero;
-            rb.AddForce(-dir.normalized * 500);
-
-    }
-
     private void Launch() {
         Rigidbody rb = Disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
@@ -151,12 +102,19 @@ public class AimManager : MonoBehaviour {
         CameraManager.Instance.SelectVCamNoDamping();
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        predictionGo.SetActive(true);
+        startPosition = Disc.transform.position;
+        startPosition.y = 0.1f; // fix perspective issue
+        predictionRenderer.SetPosition(0, startPosition);// position of the starting point of the line
+        float turnRatio = 0.001f * (Player.Instance.isInverseCam ? -1 : 1);
 
         startMoussePos = Input.mousePosition;
         while (isTurning) {
             currentMoussePos = Input.mousePosition;
-            Disc.transform.Rotate(0, (currentMoussePos.x - startMoussePos.x) * 0.001f, 0);
+            Disc.transform.Rotate(0, (currentMoussePos.x - startMoussePos.x) * turnRatio, 0);
+            Predict();
             yield return null;
         }
+        predictionGo.SetActive(false);
     }
 }

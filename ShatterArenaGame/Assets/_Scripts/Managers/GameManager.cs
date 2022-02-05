@@ -20,7 +20,6 @@ public class GameManager : Singleton<GameManager> {
     }
     private void Start() {
         SaveSystem.LoadData();
-        
     }
 
     public void StartGame() {
@@ -34,6 +33,7 @@ public class GameManager : Singleton<GameManager> {
         NbObstacles = SpawnManager.Instance.GetNbObstacles();
         NbObstaclesLeft = SpawnManager.Instance.GetNbObstacles();
         GameGold = 0;
+        if (Player.Instance.level == 1) UIManager.Instance.OpenInfoGame(true);
     }
     public void EndGame() {
         InGame = false;

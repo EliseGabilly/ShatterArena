@@ -6,6 +6,7 @@ public class Player : Singleton<Player> {
 
     public int level = 1;
     public int gold = 0;
+    public bool isInverseCam = false;
 
     public Player ChangeData(PlayerData data) {
         level = data.level;
@@ -21,5 +22,10 @@ public class Player : Singleton<Player> {
         gold += change;
         SaveSystem.SavePlayer(this);
     }
+    public void ChangeIsInverseCam(bool isInverse) {
+        isInverseCam = isInverse;
+        SaveSystem.SavePlayer(this);
+    }
+
 
 }
