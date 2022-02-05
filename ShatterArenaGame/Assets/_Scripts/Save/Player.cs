@@ -5,6 +5,7 @@ public class Player : Singleton<Player> {
     public int level = 1;
     public int gold = 0;
     public bool isInverseCam = false;
+    public bool isSoundOn = true;
 
     public enum Up {
         speed ,
@@ -21,6 +22,8 @@ public class Player : Singleton<Player> {
     public Player ChangeData(PlayerData data) {
         level = data.level;
         gold = data.gold;
+        isInverseCam = data.isInverseCam;
+        isSoundOn = data.isSoundOn;
 
         lvlSpeed = data.lvlSpeed;
         lvlNbThrow = data.lvlNbThrow;
@@ -42,6 +45,10 @@ public class Player : Singleton<Player> {
     }
     public void ChangeIsInverseCam(bool isInverse) {
         isInverseCam = isInverse;
+        SaveSystem.SavePlayer(this);
+    }
+    public void ChangeIsMusicOn(bool isOn) {
+        isSoundOn = isOn;
         SaveSystem.SavePlayer(this);
     }
 

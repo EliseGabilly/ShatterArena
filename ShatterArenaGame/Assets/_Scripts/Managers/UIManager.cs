@@ -37,6 +37,8 @@ public class UIManager : Singleton<UIManager> {
     [SerializeField]
     private Toggle cameraToggle;
     [SerializeField]
+    private Toggle musicToggle;
+    [SerializeField]
     private Text endTxt;
     [SerializeField]
     private Text throwLeftTxt;
@@ -44,6 +46,7 @@ public class UIManager : Singleton<UIManager> {
 
     private void Start() {
         cameraToggle.isOn = Player.Instance.isInverseCam;
+        musicToggle.isOn = Player.Instance.isSoundOn;
         UpdateShopValues();
     }
 
@@ -138,6 +141,11 @@ public class UIManager : Singleton<UIManager> {
 
     public void ToggleCamera(bool isOn) {
         Player.Instance.ChangeIsInverseCam(isOn);
+    }
+
+    public void ToggleMusic(bool isOn) {
+        Player.Instance.ChangeIsMusicOn(isOn);
+        AudioSystem.Instance.TurnMusicOn(isOn);
     }
 
     public void UpdateShopValues() {

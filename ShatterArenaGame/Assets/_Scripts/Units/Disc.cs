@@ -20,6 +20,7 @@ public class Disc : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
+        AudioSystem.Instance.PlayHit();
         if (obstacle!=null) {
             obstacle.TakeDamage(GetDamage());
         }
