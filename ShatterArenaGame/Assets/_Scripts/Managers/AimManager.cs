@@ -12,7 +12,6 @@ public class AimManager : MonoBehaviour {
     private LineRenderer predictionRenderer;
     private Camera mainCamera;
 
-    private bool isAiming = false;
     private readonly int maxPredictionBounce = 2;
     private readonly float maxPredictionStepDistance = 100f;
     private Vector3 startPosition;
@@ -25,9 +24,7 @@ public class AimManager : MonoBehaviour {
     [SerializeField]
     private Slider cooldownSlider;
     private float cooldown;
-
     #endregion
-
 
     private void Awake() {
         mainCamera = Camera.main;
@@ -37,8 +34,9 @@ public class AimManager : MonoBehaviour {
     private void Update() {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
             if(Input.mousePosition.y < Screen.height / 4.0f) { // if botom 25% 
-                //StartCoroutine(nameof(Aiming));
-                if (cooldown >= Const.Cooldown) {
+                if (GameManager.Instance.NbThrowLeft == 0) {
+                    UIManager.Instance.OpenEnd();
+                } else if( cooldown >= Const.Cooldown) {
                     cooldown = 0;
                     Launch();
                     if (Player.Instance.level == 1) UIManager.Instance.OpenInfoGame(false);
@@ -47,7 +45,6 @@ public class AimManager : MonoBehaviour {
                 StartCoroutine(nameof(Turn));
             }
         } else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetMouseButtonUp(0)) {
-            isAiming = false;
             isTurning = false;
             CameraManager.Instance.SelectVCamBasic();
         }
@@ -90,6 +87,8 @@ public class AimManager : MonoBehaviour {
     }
 
     private void Launch() {
+        GameManager.Instance.NbThrowLeft -= 1;
+        UIManager.Instance.ShowThrowLeft(GameManager.Instance.NbThrowLeft);
         Rigidbody rb = Disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         rb.AddForce(Disc.transform.forward * 500);

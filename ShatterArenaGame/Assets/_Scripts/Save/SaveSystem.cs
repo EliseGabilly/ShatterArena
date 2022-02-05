@@ -26,7 +26,7 @@ public static class SaveSystem {
                 SavePlayer(Player.Instance);
                 return LoadDataFromPath();
             } catch (Exception e) {
-                Debug.LogError("Save file not found (" + PATH + ")");
+                Debug.LogError("Save file not found (" + PATH + ") "+e.HelpLink);
                 return null;
             }
         }

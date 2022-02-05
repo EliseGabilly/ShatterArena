@@ -32,10 +32,12 @@ public class Player : Singleton<Player> {
 
     public void ChangeLvl(int change) {
         level += change;
+        UIManager.Instance.UpdateShopValues();
         SaveSystem.SavePlayer(this);
     }
     public void ChangeGold(int change) {
         gold += change;
+        UIManager.Instance.UpdateShopValues();
         SaveSystem.SavePlayer(this);
     }
     public void ChangeIsInverseCam(bool isInverse) {
@@ -58,6 +60,7 @@ public class Player : Singleton<Player> {
                 lvlGrenade += change;
                 break;
         }
+        UIManager.Instance.UpdateShopValues();
         SaveSystem.SavePlayer(this);
     }
     public int GetUpgradeLvl(Up upgrade) {

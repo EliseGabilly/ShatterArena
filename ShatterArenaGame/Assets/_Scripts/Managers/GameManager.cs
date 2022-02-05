@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager> {
     public float NbObstacles { get; set; }
     public float NbObstaclesLeft { get; set; }
     public int GameGold { get; set; }
+    public int NbThrowLeft { get; set; }
     #endregion
 
     protected override void Awake() {
@@ -33,6 +34,7 @@ public class GameManager : Singleton<GameManager> {
         NbObstacles = SpawnManager.Instance.GetNbObstacles();
         NbObstaclesLeft = SpawnManager.Instance.GetNbObstacles();
         GameGold = 0;
+        NbThrowLeft = Const.NbThrow + Player.Instance.lvlNbThrow;
         if (Player.Instance.level == 1) UIManager.Instance.OpenInfoGame(true);
     }
     public void EndGame() {

@@ -26,29 +26,25 @@ public class UIManager : Singleton<UIManager> {
     [SerializeField]
     private Text destructionValue;
     private bool isFirstEvol;
+    [SerializeField]
+    private Text lvlTxt;
+    [SerializeField]
+    private Text goldTxt;
 
     [Header("Elements")]
     [SerializeField]
     private GameObject lvlUpBtn;
     [SerializeField]
     private Toggle cameraToggle;
-    #endregion
-
-    #region Dev
     [SerializeField]
-    private Text lvlTxt;
+    private Text endTxt;
     [SerializeField]
-    private Text goldTxt;
-
-    private void Update() {
-        lvlTxt.text = Player.Instance.level.ToString();
-        goldTxt.text = Player.Instance.gold.ToString();
-    }
-
+    private Text throwLeftTxt;
     #endregion
 
     private void Start() {
         cameraToggle.isOn = Player.Instance.isInverseCam;
+        UpdateShopValues();
     }
 
     public void OpenMenu() {
@@ -83,7 +79,20 @@ public class UIManager : Singleton<UIManager> {
     }
 
     public void OpenEnd() {
+        int destructionVal = (int)(((GameManager.Instance.NbObstacles - GameManager.Instance.NbObstaclesLeft) / GameManager.Instance.NbObstacles) * 100);
+        string txt;
+        if (destructionVal == 100) {
+            txt = "Well done! You have destroyed all obstacles.";
+            Player.Instance.ChangeLvl(1);
+        } else if (destructionVal >= 75) {
+            txt = "No more moves, but you have cleaned up the majority of the board. You level up!";
+            Player.Instance.ChangeLvl(1);
+        } else {
+            txt = "Too bad... You have no more moves.";
+        }
+        endTxt.text = txt;
         endCanvas.enabled = true;
+        GameManager.Instance.FinishGame();
     }
 
     public void OpenInfoGame(bool isOpen) {
@@ -115,9 +124,7 @@ public class UIManager : Singleton<UIManager> {
         destructionValue.text = destructionVal.ToString() + " %";
         if (destructionVal>=100) {
             //arena cleared
-            endCanvas.enabled = true;
-            Player.Instance.ChangeLvl(1);
-            GameManager.Instance.FinishGame();
+            OpenEnd();
         } else if (destructionVal >= Const.DestructionObjectif && isFirstEvol) {
             lvlUpBtn.SetActive(true);
             isFirstEvol = false;
@@ -131,5 +138,22 @@ public class UIManager : Singleton<UIManager> {
 
     public void ToggleCamera(bool isOn) {
         Player.Instance.ChangeIsInverseCam(isOn);
+    }
+
+    public void UpdateShopValues() {
+        lvlTxt.text = Player.Instance.level.ToString();
+        goldTxt.text = Player.Instance.gold.ToString();
+    }
+
+    public void ShowThrowLeft(int nbLeft) {
+        string txt = nbLeft == 0 ? "Last throw" : nbLeft + " throw left";
+        StartCoroutine(ThrowLeft(txt));
+    }
+
+    private IEnumerator ThrowLeft(string txt) {
+        throwLeftTxt.text = txt;
+        throwLeftTxt.enabled = true;
+        yield return new WaitForSeconds(2);
+        throwLeftTxt.enabled = false;
     }
 }
