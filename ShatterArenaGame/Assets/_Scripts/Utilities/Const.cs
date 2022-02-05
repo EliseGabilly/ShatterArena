@@ -7,6 +7,7 @@ public class Const : Singleton<Const> {
     public static float Cooldown { get; } = 1;
     public static float DestructionObjectif { get; } = 75;
     public static int NbThrow { get; } = 5;
+    public static int ExplosionBaseDamage { get; } = 5;
 
 
     #region Terrain

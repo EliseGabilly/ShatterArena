@@ -4,6 +4,8 @@ public class Disc : MonoBehaviour {
 
     #region Variables
     private Rigidbody rb;
+    [SerializeField]
+    private GameObject explosion;
     private int baseDamage = 10;
     #endregion
     
@@ -22,6 +24,7 @@ public class Disc : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
+        if (Player.Instance.lvlExplosion > 1) explosion.SetActive(true);
         AudioSystem.Instance.PlayHit();
         if (obstacle!=null) {
             obstacle.TakeDamage(GetDamage());
