@@ -91,7 +91,8 @@ public class AimManager : MonoBehaviour {
         UIManager.Instance.ShowThrowLeft(GameManager.Instance.NbThrowLeft);
         Rigidbody rb = Disc.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
-        rb.AddForce(Disc.transform.forward * 500);
+        float ratio = 500 * (1+0.1f*Player.Instance.lvlSpeed);
+        rb.AddForce(Disc.transform.forward * ratio);
     }
 
     private IEnumerator Turn() {

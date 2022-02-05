@@ -1011,3 +1011,4 @@ MonoBehaviour:
   nameTxt: {fileID: 293981868978187193}
   lvlTxt: {fileID: 293981868057764141}
   priceTxt: {fileID: 293981868037749718}
+  buyBtn: {fileID: 293981868470751788}

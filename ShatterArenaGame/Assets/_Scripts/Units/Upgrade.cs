@@ -14,6 +14,8 @@ public class Upgrade : MonoBehaviour {
     private Text lvlTxt;
     [SerializeField]
     private Text priceTxt;
+    [SerializeField]
+    private Button buyBtn;
     #endregion
 
     private void Start() {
@@ -31,6 +33,7 @@ public class Upgrade : MonoBehaviour {
     }
 
     public void ChangeUpgrade(int change) {
+        buyBtn.interactable = (Player.Instance.GetUpgradeLvl(upgrade.UpgradeType) + change) < upgrade.MaxLvl;
         Player.Instance.ChangeUpgrade(upgrade.UpgradeType, change);
         UpdateValues();
     }
@@ -41,6 +44,9 @@ public class Upgrade : MonoBehaviour {
             Player.Instance.ChangeUpgrade(upgrade.UpgradeType, 1);
             Player.Instance.ChangeGold(-price);
             UpdateValues();
+            if (Player.Instance.GetUpgradeLvl(upgrade.UpgradeType) == upgrade.MaxLvl) {
+                buyBtn.interactable = false;
+            }
         }
     }
 }

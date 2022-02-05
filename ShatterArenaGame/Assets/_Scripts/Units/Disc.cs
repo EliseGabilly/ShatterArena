@@ -12,10 +12,12 @@ public class Disc : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update() {
-        if (rb.velocity.magnitude > 0.05) {
+    private void LateUpdate() {
+        if (rb.velocity.magnitude > 0.02) {
             transform.LookAt(transform.position + rb.velocity);
         }
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z); ;
     }
 
     private void OnCollisionEnter(Collision collision) {
@@ -29,5 +31,4 @@ public class Disc : MonoBehaviour {
     private int GetDamage() {
         return baseDamage;
     }
-
 }

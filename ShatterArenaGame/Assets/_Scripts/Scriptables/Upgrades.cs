@@ -20,4 +20,8 @@ public class Upgrades : ScriptableObject {
     private int pricePerLvl = 20;
     public int PricePerLvl { get => pricePerLvl; }
 
+    [SerializeField]
+    private int maxLvl = 10;
+    public int MaxLvl { get => maxLvl; }
+
 }
