@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class Player : Singleton<Player> {
 
+    #region Variables
     public int level = 1;
     public int gold = 0;
     public bool isInverseCam = false;
@@ -18,6 +16,7 @@ public class Player : Singleton<Player> {
     public int lvlNbThrow = 1;
     public int lvlExplosion = 1;
     public int lvlGrenade = 1;
+    #endregion
 
     public Player ChangeData(PlayerData data) {
         level = data.level;

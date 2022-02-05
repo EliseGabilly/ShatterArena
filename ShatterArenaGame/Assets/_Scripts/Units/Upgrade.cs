@@ -14,7 +14,6 @@ public class Upgrade : MonoBehaviour {
     private Text lvlTxt;
     [SerializeField]
     private Text priceTxt;
-
     #endregion
 
     private void Start() {

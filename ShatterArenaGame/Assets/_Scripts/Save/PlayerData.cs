@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+using 
 [System.Serializable]
 public class PlayerData {
 
+    #region Variables
     public int level;
     public int gold;
     public bool isInverseCam;
@@ -13,6 +11,7 @@ public class PlayerData {
     public int lvlNbThrow;
     public int lvlExplosion;
     public int lvlGrenade;
+    #endregion
 
     public PlayerData(Player player) {
         level = player.level;

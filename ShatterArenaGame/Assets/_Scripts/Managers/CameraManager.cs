@@ -4,12 +4,14 @@ using System.Collections;
 
 public class CameraManager : Singleton<CameraManager> {
 
+    #region Variables
     [SerializeField]
     private CinemachineVirtualCamera vcam;
     [SerializeField]
     private CinemachineVirtualCamera vcam_noDamping;
     [SerializeField]
     private Camera minMapCam;
+    #endregion
 
     public void SizeMinMapCam() {
         minMapCam.orthographicSize = Player.Instance.level + 1;
