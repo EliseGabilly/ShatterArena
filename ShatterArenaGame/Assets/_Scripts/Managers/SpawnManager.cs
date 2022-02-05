@@ -43,6 +43,27 @@ public class SpawnManager : Singleton<SpawnManager> {
         Transform wall4 = wallGO4.transform;
         wall4.localScale = new Vector3(Const.Instance.WidthTerrain, 0.5f, 0.1f);
         wall4.parent = worldParent;
+
+        //dead zones
+        GameObject deadZoneGO1 = Instantiate(ResourceSystem.Instance.DeadZone, new Vector3(Const.Instance.MinTerrain-2, 0, 0), Quaternion.identity) as GameObject;
+        Transform deadZone1 = deadZoneGO1.transform;
+        deadZone1.localScale = new Vector3(0.1f, 0.5f, Const.Instance.WidthTerrain+10);
+        deadZone1.parent = worldParent;
+
+        GameObject deadZoneGO2 = Instantiate(ResourceSystem.Instance.DeadZone, new Vector3(Const.Instance.MaxTerrain+2, 0, 0), Quaternion.identity) as GameObject;
+        Transform deadZone2 = deadZoneGO2.transform;
+        deadZone2.localScale = new Vector3(0.1f, 0.5f, Const.Instance.WidthTerrain + 10);
+        deadZone2.parent = worldParent;
+
+        GameObject deadZoneGO3 = Instantiate(ResourceSystem.Instance.DeadZone, new Vector3(0, 0, Const.Instance.MinTerrain-2), Quaternion.identity) as GameObject;
+        Transform deadZone3 = deadZoneGO3.transform;
+        deadZone3.localScale = new Vector3(Const.Instance.WidthTerrain + 10, 0.5f, 0.1f);
+        deadZone3.parent = worldParent;
+
+        GameObject deadZoneGO4 = Instantiate(ResourceSystem.Instance.DeadZone, new Vector3(0, 0, Const.Instance.MaxTerrain+2), Quaternion.identity) as GameObject;
+        Transform deadZone4 = deadZoneGO4.transform;
+        deadZone4.localScale = new Vector3(Const.Instance.WidthTerrain + 10, 0.5f, 0.1f);
+        deadZone4.parent = worldParent;
     }
 
     public void SpawnObstacles() {

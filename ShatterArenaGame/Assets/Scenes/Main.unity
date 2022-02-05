@@ -232,8 +232,8 @@ RectTransform:
   m_Father: {fileID: 1217371623}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.606, y: 0.2}
-  m_AnchorMax: {x: 0.72683334, y: 0.5}
+  m_AnchorMin: {x: 0.72683334, y: 0.2}
+  m_AnchorMax: {x: 0.84175, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1593,41 +1593,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &320051559 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-  m_PrefabInstance: {fileID: 1428236339}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &335642810
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 335642811}
-  m_Layer: 0
-  m_Name: '--------------------- '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &335642811
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335642810}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &347439337 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 293981869807378917, guid: cc6d2114848aa2b48ae83cec3e01785b, type: 3}
@@ -2320,7 +2285,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571986338}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 963194227}
@@ -3408,6 +3373,86 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904716464}
+  m_CullTransparentMesh: 1
+--- !u!1 &908431309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 908431310}
+  - component: {fileID: 908431312}
+  - component: {fileID: 908431311}
+  m_Layer: 0
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &908431310
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908431309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1981305975}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.1, y: 0.05}
+  m_AnchorMax: {x: 0.9, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &908431311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908431309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "[DEV/TEST] The red buttons are for testing purposes, up to you if you
+    want to cheat\r."
+--- !u!222 &908431312
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908431309}
   m_CullTransparentMesh: 1
 --- !u!1 &963194225
 GameObject:
@@ -5236,103 +5281,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413604450}
   m_CullTransparentMesh: 1
---- !u!1001 &1428236339
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1686513714}
-    m_Modifications:
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378917, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293981869807378938, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
-      propertyPath: m_Name
-      value: GrenadeUp
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c3fabcda53d8bab4a94a401858e3dc1b, type: 3}
 --- !u!1 &1433679006
 GameObject:
   m_ObjectHideFlags: 0
@@ -6217,8 +6165,8 @@ RectTransform:
   m_Father: {fileID: 1217371623}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.72683334, y: 0.2}
-  m_AnchorMax: {x: 0.84175, y: 0.5}
+  m_AnchorMin: {x: 0.606, y: 0.2}
+  m_AnchorMax: {x: 0.72683334, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6639,12 +6587,11 @@ RectTransform:
   - {fileID: 680402787}
   - {fileID: 347439337}
   - {fileID: 1808770550}
-  - {fileID: 320051559}
   m_Father: {fileID: 1981305975}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.05}
-  m_AnchorMax: {x: 0.95, y: 0.7}
+  m_AnchorMin: {x: 0.05, y: 0.15}
+  m_AnchorMax: {x: 0.95, y: 0.65}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7013,10 +6960,10 @@ MonoBehaviour:
     makes it lose its momentum)\r\nThe lower part is used to throw the disc straight
     ahead.\r\n\n<b>Info : </b>\r\nThe higher your level, the bigger the arena will
     be.\r\nThe blocks have more or less life points depending on their color (beware
-    black blocks are indestructible).\n[IN PROGRESS] You earn gold by destroying
-    buildings, this allows you to buy upgrades in the shop\r.\n[IN PROGRESS] You
-    have 5 moves (plus upgrades) to complete a level\r\n[DEV/TEST] The red buttons
-    in the shop are for testing purposes, up to you if you want to cheat\r."
+    black blocks are indestructible).\nYou earn gold by destroying buildings, this
+    allows you to buy upgrades in the shop\r.\nYou have 5 moves (plus upgrades) to
+    complete a level\r\n[DEV/TEST] The red buttons in the shop are for testing purposes,
+    up to you if you want to cheat\r."
 --- !u!222 &1766115772
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7852,6 +7799,7 @@ RectTransform:
   - {fileID: 73264313}
   - {fileID: 1217371623}
   - {fileID: 1686513714}
+  - {fileID: 908431310}
   m_Father: {fileID: 2080685437}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -16,3 +16,4 @@ MonoBehaviour:
   upgradeType: 1
   entryPrice: 120
   pricePerLvl: 15
+  maxLvl: 20

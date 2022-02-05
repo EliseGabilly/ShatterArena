@@ -9,6 +9,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem> {
     //Environment
     public GameObject Floor { get; private set; }
     public GameObject Wall { get; private set; }
+    public GameObject DeadZone { get; private set; }
     public GameObject ObstacleParent { get; private set; }
     public GameObject WorldParent { get; private set; }
     //Scriptables
@@ -25,6 +26,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem> {
     private void AssembleResources() {
         Floor = Resources.Load("Terrain/Floor") as GameObject;
         Wall = Resources.Load("Terrain/Wall") as GameObject;
+        DeadZone = Resources.Load("Terrain/DeadZone") as GameObject;
         ObstacleParent = Resources.Load("Terrain/Obstacles") as GameObject;
         WorldParent = Resources.Load("Terrain/World") as GameObject;
 
