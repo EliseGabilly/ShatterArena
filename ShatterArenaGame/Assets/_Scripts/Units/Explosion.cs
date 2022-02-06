@@ -11,7 +11,7 @@ public class Explosion : MonoBehaviour {
     }
 
     private IEnumerator Unactive() {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.05f);
         gameObject.SetActive(false);
     }
 }
