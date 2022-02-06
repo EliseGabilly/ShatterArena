@@ -3,6 +3,9 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+/// <summary>
+/// Save and load information fro player in the persistente data directory
+/// </summary>
 public static class SaveSystem {
 
     private static readonly string PATH = Application.persistentDataPath + "/player.txt";

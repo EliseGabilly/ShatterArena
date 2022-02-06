@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Logic and functions related to scriptable upgrades
+/// </summary>
 public class Upgrade : MonoBehaviour {
 
     #region Variables

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Groupping are a list of obstacles/position which allows the obstacles to be placed in relation to each other
+/// </summary>
 [CreateAssetMenu(fileName = "Grouping", menuName = "Scriptable/Groupings")]
 public class Grouping : ScriptableObject {
 

@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Logic and functions related to scriptable obstacles
+/// </summary>
 public class Obstacle : MonoBehaviour {
 
     #region Variables

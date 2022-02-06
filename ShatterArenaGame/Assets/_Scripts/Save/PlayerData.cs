@@ -1,3 +1,6 @@
+/// <summary>
+/// Serializable class savable with the save system
+/// </summary>
 [System.Serializable]
 public class PlayerData {
 

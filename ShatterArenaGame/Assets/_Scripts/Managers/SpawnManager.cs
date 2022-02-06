@@ -13,6 +13,9 @@ public class SpawnManager : Singleton<SpawnManager> {
     private int obstacleCount;
     #endregion
 
+    /// <summary>
+    /// Spawn floor and walls, size dependente of the player lvl
+    /// </summary>
     internal void SpawnWorld() {
         GameObject worldParentGO = Instantiate(ResourceSystem.Instance.WorldParent, Vector3.zero, Quaternion.identity) as GameObject;
         worldParent = worldParentGO.transform;
@@ -66,6 +69,9 @@ public class SpawnManager : Singleton<SpawnManager> {
         deadZone4.parent = worldParent;
     }
 
+    /// <summary>
+    /// Spawn x random obtacles based on the player lvl, call for group spawn
+    /// </summary>
     public void SpawnObstacles() {
         int nbObstacles = Const.Instance.NbObstacles;
         int nbGroup = Const.Instance.NbGrouping;

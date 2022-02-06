@@ -1,4 +1,6 @@
-
+/// <summary>
+/// Player class containing the information that are "translated" in playerdata then saved
+/// </summary>
 public class Player : Singleton<Player> {
 
     #region Variables

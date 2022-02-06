@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Script for the disc to deffin his behaviour on collision
+/// </summary>
 public class Disc : MonoBehaviour {
 
     #region Variables

@@ -2,6 +2,9 @@ using UnityEngine;
 using Cinemachine;
 using System.Collections;
 
+/// <summary>
+/// Function to mangage virtual cameras and give the lead to one or the other
+/// </summary>
 public class CameraManager : Singleton<CameraManager> {
 
     #region Variables

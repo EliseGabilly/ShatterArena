@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Logic to make the "explosion" upgrade work
+/// </summary>
 public class Explosion : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         Obstacle obstacle = other.gameObject.GetComponent<Obstacle>();

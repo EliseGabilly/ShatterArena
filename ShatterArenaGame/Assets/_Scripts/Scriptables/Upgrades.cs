@@ -1,5 +1,9 @@
 using UnityEngine;
 
+
+/// <summary>
+/// Upgrades are buyable in the shop and change the gameplay
+/// </summary>
 [CreateAssetMenu(fileName = "Upgrade", menuName = "Scriptable/Upgrades")]
 public class Upgrades : ScriptableObject {
 

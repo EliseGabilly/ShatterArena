@@ -1,5 +1,6 @@
-
-/// Persistent class keeped one main object which is never killed, with sub-systems as children.
+/// <summary>
+/// Persistent class to keep one main object as persitent (with sub-systems as children)
+/// </summary>
 public class Systems : PersistentSingleton<Systems> {
     
 }

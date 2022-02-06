@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Obstacles are destructibles that (once likend to a GO) are spawn on the terrain
+/// </summary>
 [CreateAssetMenu(fileName = "Obstacle", menuName = "Scriptable/Obstacles")]
 public class Obstacles : ScriptableObject {
 

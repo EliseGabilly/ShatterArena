@@ -1,8 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Set of functions called by interface elements
+/// </summary>
 public class UIManager : Singleton<UIManager> {
 
     #region Variables
@@ -81,6 +83,10 @@ public class UIManager : Singleton<UIManager> {
         UpdateGameValues();
     }
 
+    /// <summary>
+    /// Personnalize the end text based on the configuration
+    /// </summary>
+    /// <param name="isHowWeGotHere"> trigger to use went hitting deadzone </param>
     public void OpenEnd(bool isHowWeGotHere = false) {
         int destructionVal = (int)(((GameManager.Instance.NbObstacles - GameManager.Instance.NbObstaclesLeft) / GameManager.Instance.NbObstacles) * 100);
         string txt;

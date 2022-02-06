@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Some values needed around the project gathered in on class
+/// </summary>
 public class Const : Singleton<Const> {
 
     public static float Cooldown { get; } = 1;

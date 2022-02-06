@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// Audio system with 3D sound
+/// <summary>
+/// Audio system support 3D sound
+/// </summary>
 public class AudioSystem : StaticInstance<AudioSystem> {
 
     #region Variable

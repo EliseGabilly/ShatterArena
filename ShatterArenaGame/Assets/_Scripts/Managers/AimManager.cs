@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manage screen turning and disc launch based on screen input
+/// </summary>
 public class AimManager : MonoBehaviour {
 
     #region Variables
@@ -31,6 +34,9 @@ public class AimManager : MonoBehaviour {
         cooldown = Const.Cooldown;
     }
 
+    /// <summary>
+    /// Check for inputs
+    /// </summary>
     private void Update() {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButtonDown(0)) {
             if(Input.mousePosition.y < Screen.height / 4.0f) { // if botom 25% 
@@ -62,12 +68,21 @@ public class AimManager : MonoBehaviour {
         predictionRenderer = predictionGo.GetComponent<LineRenderer>();
     }
 
+    /// <summary>
+    /// Display a line prediction in the direction in wich the disc will go
+    /// </summary>
     void Predict() {
         Vector3 dir = currentMoussePos - startMoussePos;
         Vector3 pos = new Vector3(Disc.transform.position.x, 0.1f, Disc.transform.position.z);
         DrawReflection(pos, Disc.transform.forward, maxPredictionBounce);
     }
 
+    /// <summary>
+    /// Calculate a bounce for the line prediction
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="direction"></param>
+    /// <param name="reflectionsRemaining"></param>
     private void DrawReflection(Vector3 position, Vector3 direction, int reflectionsRemaining) {
         if (reflectionsRemaining == 0) {
             return;
@@ -86,6 +101,9 @@ public class AimManager : MonoBehaviour {
         DrawReflection(position, direction, reflectionsRemaining - 1);
     }
 
+    /// <summary>
+    /// Give the disc a velocity forward
+    /// </summary>
     private void Launch() {
         GameManager.Instance.NbThrowLeft -= 1;
         UIManager.Instance.ShowThrowLeft(GameManager.Instance.NbThrowLeft);
@@ -95,6 +113,10 @@ public class AimManager : MonoBehaviour {
         rb.AddForce(Disc.transform.forward * ratio);
     }
 
+    /// <summary>
+    /// Turn the screen while the user is touching the screen
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Turn() {
         isTurning = true;
         CameraManager.Instance.SelectVCamNoDamping();
