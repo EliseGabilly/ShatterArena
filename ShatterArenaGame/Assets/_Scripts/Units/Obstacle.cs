@@ -19,7 +19,7 @@ public class Obstacle : MonoBehaviour {
     private void Awake() {
         healt = obstacle.MaxHealt;
         gameObject.GetComponent<MeshRenderer>().material = obstacle.Material;
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         isStanding = true;
     }
 
